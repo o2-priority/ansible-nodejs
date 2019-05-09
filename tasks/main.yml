@@ -6,3 +6,21 @@
 - name: Yarn | Nodejs package manager install
   include_tasks: yarn.yml
   when: nodejs_yarn_install
+
+- name: Install npm packages (yarn)
+  yarn:
+    name: "{{ item.name }}"
+    version: "{{ item.version }}"
+    global: "{{ item.global | default('no') }}"
+    path: "{{ item.path | default('') }}"
+  with_items: "{{ nodejs_npm_packages }}"
+  when: nodejs_yarn_install
+
+- name: Install npm packages (npm)
+  npm:
+    name: "{{ item.name }}"
+    version: "{{ item.version }}"
+    global: "{{ item.global | default('no') }}"
+    path: "{{ item.path | default('') }}"
+  with_items: "{{ nodejs_npm_packages }}"
+  when: not nodejs_yarn_install

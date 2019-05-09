@@ -1,4 +1,4 @@
-require 'spec_helper'
+require '/tmp/kitchen/spec/spec_helper.rb'
 
 nodejs_build_tools = [ 'build-essential' ]
 nodejs_repo_conf_files = [ '/etc/apt/sources.list.d/nodesource.list' ]
@@ -27,7 +27,7 @@ end
 
 describe command("node -v") do
   its(:exit_status) { should eq 0 }
-  its(:stdout) { should match %r(v8.14.0) }
+  its(:stdout) { should match %r(v8.16.0) }
 end
 
 describe command("npm -v") do
@@ -37,4 +37,3 @@ end
 describe package('yarn') do
   it { should be_installed }
 end
-
